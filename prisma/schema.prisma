@@ -20,8 +20,8 @@ model User {
 }
 
 enum Role {
-    client
     admin
+    client
 }
 
 model Order {
@@ -30,6 +30,16 @@ model Order {
     userId     Int
     products   ProductOrder[]
     totalValue Decimal
+    coupon     Coupon?        @relation(fields: [couponId], references: [id])
+    couponId   Int?
+}
+
+model Coupon {
+    id          Int     @id @default(autoincrement())
+    name        String
+    description String
+    discount    Decimal
+    Order       Order[]
 }
 
 model Product {
@@ -59,6 +69,7 @@ model ProductImage {
 
 model ProductOrder {
     quantity Int
+    discount Decimal?
 
     order     Order   @relation(fields: [orderId], references: [id])
     orderId   Int
