@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import Encryption from "../core/utils/encryption";
 const prisma = new PrismaClient();
 async function main() {
     await prisma.user.upsert({
@@ -8,7 +9,7 @@ async function main() {
             id: 1,
             name: "alice",
             email: "alice@email.com",
-            password: "asd123",
+            password: Encryption.hashPassword("asd123"),
             role: "admin",
         },
     });
