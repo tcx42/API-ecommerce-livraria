@@ -38,8 +38,11 @@ export default class Product {
                 description,
                 inventory,
                 categories: {
-                    connect: categories?.map((category) => {
-                        return { name: category };
+                    connectOrCreate: categories?.map((category) => {
+                        return {
+                            where: { name: category },
+                            create: { name: category },
+                        };
                     }),
                 },
                 images: {
@@ -76,8 +79,11 @@ export default class Product {
                 description,
                 inventory,
                 categories: {
-                    connect: categories?.map((category) => {
-                        return { name: category };
+                    connectOrCreate: categories?.map((category) => {
+                        return {
+                            where: { name: category },
+                            create: { name: category },
+                        };
                     }),
                 },
                 images: {
