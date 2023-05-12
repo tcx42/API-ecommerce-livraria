@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import ProductRepository from "../../repositories/product/product.repository";
 import ApiError from "../../infra/apiErrors/ApiError";
-export default class ProductRepositoryController {
+export default class ProductController {
     static async getAll(req: Request, res: Response, next: NextFunction) {
         try {
             const products = await ProductRepository.findAll();
