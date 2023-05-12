@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import Product from "../../repositories/product/product.repository";
+import ProductRepository from "../../repositories/product/product.repository";
 import ApiError from "../../infra/apiErrors/ApiError";
-export default class ProductController {
+export default class ProductRepositoryController {
     static async getAll(req: Request, res: Response, next: NextFunction) {
         try {
-            const products = await Product.findAll();
+            const products = await ProductRepository.findAll();
             return res.status(200).json(products);
         } catch (error) {
             next(error);
@@ -17,7 +17,7 @@ export default class ProductController {
         next: NextFunction
     ) {
         try {
-            const products = await Product.findByCategory(req.params.category);
+            const products = await ProductRepository.findByCategory(req.params.category);
             return res.status(200).json(products);
         } catch (error) {
             next(error);
@@ -28,7 +28,7 @@ export default class ProductController {
         try {
             const data = JSON.parse(req.body.data);
             if (!req.files) throw new ApiError(400, "no files");
-            const product = await Product.create({
+            const product = await ProductRepository.create({
                 name: data.name,
                 description: data.description,
                 price: data.price,
@@ -46,7 +46,7 @@ export default class ProductController {
 
     static async update(req: Request, res: Response, next: NextFunction) {
         try {
-            const product = await Product.update(req.body);
+            const product = await ProductRepository.update(req.body);
             return res.status(200).json(product);
         } catch (error) {
             next(error);
@@ -56,7 +56,7 @@ export default class ProductController {
     static async delete(req: Request, res: Response, next: NextFunction) {
         const id = parseInt(req.params.id);
         try {
-            const product = await Product.delete(id);
+            const product = await ProductRepository.delete(id);
             return res.status(200).json(product);
         } catch (error) {
             next(error);

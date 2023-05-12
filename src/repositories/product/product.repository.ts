@@ -1,6 +1,6 @@
 import { prisma } from "../../database/db";
 
-export default class Product {
+export default class ProductRepository {
     static async findAll() {
         return await prisma.product.findMany({
             include: { categories: true, images: true },
