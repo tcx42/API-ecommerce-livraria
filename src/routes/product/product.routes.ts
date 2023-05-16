@@ -1,6 +1,8 @@
 import { Router } from "express";
 import upload from "../../core/uploads/upload";
 import ProductController from "../../controllers/product/product.controller";
+import validateDto from "../../middlewares/requestValidation/validateDTO";
+import { productSchemas } from "../../middlewares/requestValidation/schemas/productSchema";
 
 const productRoutes = Router();
 
@@ -8,7 +10,7 @@ productRoutes.get("/product", ProductController.getAll);
 productRoutes.get("/product/:category", ProductController.getByCategory);
 productRoutes.post(
   "/product",
-  upload.array("images"),
+  validateDto(productSchemas.newProductSchema),
   ProductController.create,
 );
 productRoutes.put(

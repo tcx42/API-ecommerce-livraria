@@ -28,17 +28,13 @@ export default class ProductController {
 
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const data = JSON.parse(req.body.data);
-      if (!req.files) throw new ApiError(400, "no files");
+      const data = req.body;
       const product = await ProductRepository.create({
         name: data.name,
         description: data.description,
         price: data.price,
         categories: data.category,
         inventory: data.inventory,
-        images: (req.files as Array<Express.Multer.File>).map(
-          (file: Express.Multer.File) => file.path,
-        ),
       });
       return res.status(201).json(product);
     } catch (error) {
