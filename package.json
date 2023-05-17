@@ -1,49 +1,44 @@
 {
-  "name": "projetofinal",
-  "version": "1.0.0",
-  "main": "src/index",
-  "scripts": {
-    "test": "tsc && jest",
-    "dev": "concurrently \"tsc -w\" \"node --watch build/index.js\"",
-    "compile": "tsc",
-    "start": "node build/index.js",
-    "seed": "tsc && node build/database/seed.js"
-  },
-  "prisma": {
-    "seed": "npm run seed"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@prisma/client": "^4.13.0",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.21.4",
-    "@babel/preset-env": "^7.21.4",
-    "@babel/preset-typescript": "^7.21.4",
-    "@types/express": "^4.17.17",
-    "@types/jest": "^29.5.1",
-    "@types/node": "^18.16.3",
-    "@types/supertest": "^2.0.12",
-    "babel-jest": "^29.5.0",
-    "concurrently": "^8.0.1",
-    "prisma": "^4.13.0",
-    "supertest": "^6.3.3",
-    "ts-jest": "^29.1.0",
-    "ts-node": "^10.9.1",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.0.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jonny2024/API-ecommerce-livraria.git"
-  },
-  "keywords": [],
-  "bugs": {
-    "url": "https://github.com/jonny2024/API-ecommerce-livraria/issues"
-  },
-  "homepage": "https://github.com/jonny2024/API-ecommerce-livraria#readme"
+    "name": "projetofinal",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "tsc && jest",
+        "dev": "concurrently \"tsc -w\" \"node --watch build/index.js\"",
+        "compile": "tsc",
+        "start": "node build/index.js",
+        "seed": "tsc && node build/database/seed.js",
+        "migrate": "prisma migrate deploy && prisma db push"
+    },
+    "prisma": {
+        "seed": "npm run seed"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@prisma/client": "^4.13.0",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.0",
+        "multer": "^1.4.5-lts.1",
+        "prisma": "^4.13.0",
+        "yup": "^1.1.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.21.4",
+        "@babel/preset-env": "^7.21.4",
+        "@babel/preset-typescript": "^7.21.4",
+        "@types/express": "^4.17.17",
+        "@types/jest": "^29.5.1",
+        "@types/jsonwebtoken": "^9.0.2",
+        "@types/multer": "^1.4.7",
+        "@types/node": "^18.16.2",
+        "@types/supertest": "^2.0.12",
+        "babel-jest": "^29.5.0",
+        "concurrently": "^8.0.1",
+        "supertest": "^6.3.3",
+        "ts-jest": "^29.1.0",
+        "typescript": "^5.0.4"
+    }
 }
