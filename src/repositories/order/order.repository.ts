@@ -44,4 +44,15 @@ export default class OrderRepository {
     });
     await prisma.$transaction([deleteOrderProducts, deleteOrder]);
   }
+
+  static async getOrders() {
+    return await prisma.order.findMany();
+  }
+
+  static async getOrdersByProduct(id: number) {
+    return await prisma.product.findMany({
+      where: { id },
+      include: { orders: true },
+    });
+  }
 }

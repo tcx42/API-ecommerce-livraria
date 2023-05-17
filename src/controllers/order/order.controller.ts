@@ -41,4 +41,27 @@ export default class OrderController {
       next(error);
     }
   }
+
+  static async getAllOrders(req: Request, res: Response, next: NextFunction) {
+    try {
+      const orders = await OrderRepository.getOrders();
+      return res.status(200).json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getOrdersByProduct(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const id = parseInt(req.params.id);
+      const orders = await OrderRepository.getOrdersByProduct(id);
+      return res.status(200).json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

@@ -7,4 +7,7 @@ orderRouters.post("/order", OrderController.createOrder);
 orderRouters.get("/order/user/:id", OrderController.getUserOrders);
 orderRouters.delete("/order/:id", OrderController.deleteOrder);
 
+orderRouters.get("/order", OrderController.getAllOrders);
+orderRouters.get("/order/product/:id", OrderController.getOrdersByProduct);
+
 export default orderRouters;
