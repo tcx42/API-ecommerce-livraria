@@ -12,7 +12,7 @@ routes.use(userRoutes);
 routes.use(categoryRoutes);
 
 routes.get("/health", (req, res) => {
-  return res.status(200).json("ok");
+  return res.sendStatus(200);
 });
 
 export default routes;

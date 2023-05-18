@@ -109,7 +109,7 @@ export default class UserController {
     try {
       const { email } = req.params;
       await UserRepository.deleteUser(email);
-      return res.sendStatus(200);
+      return res.sendStatus(204);
     } catch (error) {
       next(error);
     }
