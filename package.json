@@ -8,7 +8,8 @@
         "compile": "tsc",
         "start": "node build/index.js",
         "seed": "tsc && node build/database/seed.js",
-        "migrate": "prisma migrate deploy && prisma db push"
+        "devMigrate": "prisma migrate dev",
+        "setup":"mkdir images && npm i && npm run devMigrate && npm run compile"
     },
     "prisma": {
         "seed": "npm run seed"
