@@ -11,11 +11,7 @@ export default class ProductController {
     }
   }
 
-  static async getByCategory(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) {
+  static async getByCategory(req: Request, res: Response, next: NextFunction) {
     try {
       const products = await ProductRepository.findByCategory(
         req.params.category,
@@ -28,14 +24,8 @@ export default class ProductController {
 
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const data = req.body;
-      const product = await ProductRepository.create({
-        name: data.name,
-        description: data.description,
-        price: data.price,
-        categories: data.category,
-        inventory: data.inventory,
-      });
+      console.log(req.body)
+      const product = await ProductRepository.create(req.body);
       return res.status(201).json(product);
     } catch (error) {
       next(error);
@@ -55,7 +45,7 @@ export default class ProductController {
   static async delete(req: Request, res: Response, next: NextFunction) {
     const id = parseInt(req.params.id);
     try {
-      const product = await ProductRepository.delete(id);
+      await ProductRepository.delete(id);
       return res.sendStatus(204);
     } catch (error) {
       next(error);

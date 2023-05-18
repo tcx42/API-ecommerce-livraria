@@ -31,6 +31,7 @@ export default class ProductRepository {
     categories?: Array<string>;
     images?: Array<string>;
   }) {
+    console.log(categories)
     return await prisma.product.create({
       data: {
         name,
@@ -96,8 +97,11 @@ export default class ProductRepository {
   }
 
   static async delete(id: number) {
-    await prisma.productImage.deleteMany({ where: { productId: id } });
-    return await prisma.product.delete({ where: { id } });
+    const deleteImages = prisma.productImage.deleteMany({
+      where: { productId: id },
+    });
+    const deleteProduct = prisma.product.delete({ where: { id } });
+    await prisma.$transaction([deleteImages, deleteProduct]);
   }
 
   static async newImage(productId: number, imagesPaths: string[]) {
