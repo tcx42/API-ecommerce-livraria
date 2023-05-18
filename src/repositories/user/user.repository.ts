@@ -44,7 +44,7 @@ export default class UserRepository {
     password: string;
     role: "admin" | "client";
   }) {
-    return await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         name,
         email,
@@ -52,6 +52,7 @@ export default class UserRepository {
         role,
       },
     });
+    return { name: user.name, email: user.email, role: user.role };
   }
 
   static async updateUser({

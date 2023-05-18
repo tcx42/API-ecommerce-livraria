@@ -32,7 +32,6 @@ userRoutes.delete(
 );
 userRoutes.post(
   "/user",
-  Authentication.authClient,
   validateDto(userSchema.createUser),
   UserController.createClient,
 );
