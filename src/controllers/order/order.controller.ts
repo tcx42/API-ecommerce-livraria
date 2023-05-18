@@ -36,7 +36,7 @@ export default class OrderController {
     try {
       const id = parseInt(req.params.id);
       await OrderRepository.deleteOrder(id);
-      return res.sendStatus(200);
+      return res.sendStatus(204);
     } catch (error) {
       next(error);
     }

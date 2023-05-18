@@ -10,7 +10,7 @@ productRoutes.get("/product", ProductController.getAll);
 productRoutes.get("/product/:category", ProductController.getByCategory);
 productRoutes.post(
   "/product",
-  validateDto(productSchemas.newProductSchema),
+  validateDto(productSchemas.newProduct),
   ProductController.create,
 );
 productRoutes.put(
