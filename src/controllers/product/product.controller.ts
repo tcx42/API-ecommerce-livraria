@@ -24,7 +24,6 @@ export default class ProductController {
 
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.body)
       const product = await ProductRepository.create(req.body);
       return res.status(201).json(product);
     } catch (error) {

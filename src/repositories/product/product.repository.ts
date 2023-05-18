@@ -31,7 +31,6 @@ export default class ProductRepository {
     categories?: Array<string>;
     images?: Array<string>;
   }) {
-    console.log(categories)
     return await prisma.product.create({
       data: {
         name,
