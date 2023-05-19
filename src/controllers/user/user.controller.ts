@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import UserRepository from "../../repositories/user/user.repository";
 import ApiError from "../../infra/apiErrors/ApiError";
 import Encryption from "../../core/utils/encryption";
-import Authentication from "../../middlewares/authentication/authentication";
+import Jwtoken from "../../core/utils/jwtoken";
 
 export default class UserController {
   static async login(req: Request, res: Response, next: NextFunction) {
@@ -13,12 +13,22 @@ export default class UserController {
       if (!Encryption.isPasswordValid(password, user.password)) {
         throw new ApiError(400, "Credenciais inválidas.");
       }
-      const token = Authentication.generateToken({
+      const token = Jwtoken.generateToken({
         name: user.name,
         email: user.email,
         role: user.role,
       });
-      return res.status(200).json(token);
+      const refreshtoken = Jwtoken.generateRefreshToken(email);
+      res.cookie("jsonwebtoken", token);
+      res.cookie("refreshtoken", refreshtoken);
+      return res.sendStatus(200);
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async logout(req: Request, res: Response, next: NextFunction) {
+    try {
+      return res.clearCookie("jsonwebtoken").sendStatus(200);
     } catch (error) {
       next(error);
     }
