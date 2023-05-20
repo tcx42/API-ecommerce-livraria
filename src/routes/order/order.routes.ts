@@ -8,20 +8,20 @@ const orderRouters = Router();
 
 orderRouters.post(
   "/order",
-  validateDto(orderSchema.create),
   Authentication.authClient,
+  validateDto(orderSchema.create),
   OrderController.createOrder,
 );
 orderRouters.get(
   "/order/user/:id",
-  validateDto(orderSchema.onlyIdRequired),
   Authentication.authClient,
+  validateDto(orderSchema.onlyIdRequired),
   OrderController.getUserOrders,
 );
 orderRouters.delete(
   "/order/:id",
-  validateDto(orderSchema.onlyIdRequired),
   Authentication.authClient,
+  validateDto(orderSchema.onlyIdRequired),
   OrderController.deleteOrder,
 );
 
@@ -32,8 +32,8 @@ orderRouters.get(
 );
 orderRouters.get(
   "/order/product/:id",
-  validateDto(orderSchema.onlyIdRequired),
   Authentication.authAdmin,
+  validateDto(orderSchema.onlyIdRequired),
   OrderController.getOrdersByProduct,
 );
 

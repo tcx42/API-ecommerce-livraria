@@ -6,6 +6,18 @@ import Authentication from "../../middlewares/authentication/authentication";
 
 const userRoutes = Router();
 
+userRoutes.get("/user", Authentication.authAdmin, UserController.getAll);
+userRoutes.post(
+  "/user",
+  validateDto(userSchema.createUser),
+  UserController.createClient,
+);
+userRoutes.post(
+  "/admin",
+  Authentication.authAdmin,
+  validateDto(userSchema.createUser),
+  UserController.createAdmin,
+);
 userRoutes.post(
   "/user/login",
   validateDto(userSchema.login),
@@ -31,17 +43,5 @@ userRoutes.delete(
   validateDto(userSchema.deleteUser),
   UserController.delete,
 );
-userRoutes.post(
-  "/user",
-  validateDto(userSchema.createUser),
-  UserController.createClient,
-);
-userRoutes.post(
-  "/admin",
-  Authentication.authAdmin,
-  validateDto(userSchema.createUser),
-  UserController.createAdmin,
-);
-userRoutes.get("/user", UserController.getAll);
 
 export default userRoutes;

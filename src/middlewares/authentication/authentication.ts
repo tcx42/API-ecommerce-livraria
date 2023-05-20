@@ -28,7 +28,7 @@ export default class Authentication {
   }
   private static verify(req: Request, res: Response) {
     try {
-      Jwtoken.verify(req.cookies.jsonwebtoken);
+      return Jwtoken.verify(req.cookies.jsonwebtoken);
     } catch (error) {
       if (error instanceof TokenExpiredError) {
         Jwtoken.verifyRefresh(req.cookies.refreshtoken);

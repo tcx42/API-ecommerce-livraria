@@ -21,28 +21,28 @@ productRoutes.post(
 );
 productRoutes.put(
   "/product/:id",
-  validateDto(productSchemas.updateProduct),
   Authentication.authAdmin,
+  validateDto(productSchemas.updateProduct),
   upload.array("images"),
   ProductController.update,
 );
 productRoutes.delete(
   "/product/:id",
-  validateDto(productSchemas.onlyIdRequired),
   Authentication.authAdmin,
+  validateDto(productSchemas.onlyIdRequired),
   ProductController.delete,
 );
 productRoutes.post(
   "/product/:id/images",
-  validateDto(productSchemas.onlyIdRequired),
   Authentication.authAdmin,
+  validateDto(productSchemas.onlyIdRequired),
   upload.array("images"),
   ProductController.newImage,
 );
 productRoutes.delete(
   "/product/images/:id",
-  validateDto(productSchemas.onlyIdRequired),
   Authentication.authAdmin,
+  validateDto(productSchemas.onlyIdRequired),
   ProductController.deleteImage,
 );
 
