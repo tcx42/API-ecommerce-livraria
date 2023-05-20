@@ -11,6 +11,7 @@ userRoutes.post(
   validateDto(userSchema.login),
   UserController.login,
 );
+userRoutes.get("/user/logout", UserController.logout);
 userRoutes.get(
   "/user/:email",
   Authentication.authClient,

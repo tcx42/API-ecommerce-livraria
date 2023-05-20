@@ -28,7 +28,9 @@ export default class UserController {
   }
   static async logout(req: Request, res: Response, next: NextFunction) {
     try {
-      return res.clearCookie("jsonwebtoken").sendStatus(200);
+      res.clearCookie("jsonwebtoken");
+      res.clearCookie("refreshtoken");
+      return res.sendStatus(200);
     } catch (error) {
       next(error);
     }
