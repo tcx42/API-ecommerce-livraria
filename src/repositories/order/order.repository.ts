@@ -8,21 +8,29 @@ export default class OrderRepository {
       products: Array<{ productId: number; quantity: number }>;
     },
   ) {
-    const totalValue = await prisma.product.aggregate({
-      _sum: { price: true },
-      where: { id: { in: products.map((p) => p.productId) } },
-    });
-    if (!totalValue._sum.price) {
-      throw new ApiError(500, "Falha ao resgatar preço de produtos");
-    }
-    return await prisma.order.create({
-      data: {
-        userId,
-        totalValue: totalValue._sum.price,
-        products: {
-          create: products,
+    return await prisma.$transaction(async (tx) => {
+      const totalValue = await tx.product.aggregate({
+        _sum: { price: true },
+        where: { id: { in: products.map((p) => p.productId) } },
+      });
+      if (!totalValue._sum.price) {
+        throw new ApiError(400, "Produto inválido ou inexistente.");
+      }
+      for (const product of products) {
+        await tx.product.update({
+          where: { id: product.productId },
+          data: { inventory: { decrement: product.quantity } },
+        });
+      }
+      return await tx.order.create({
+        data: {
+          userId,
+          totalValue: totalValue._sum.price,
+          products: {
+            create: products,
+          },
         },
-      },
+      });
     });
   }
 

@@ -47,7 +47,7 @@ model Product {
     name        String
     description String         @db.Text
     price       Decimal
-    inventory   Int
+    inventory   Int            @db.UnsignedInt
     categories  Category[]
     images      ProductImage[]
     orders      ProductOrder[]
