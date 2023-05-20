@@ -8,7 +8,11 @@ import Authentication from "../../middlewares/authentication/authentication";
 const productRoutes = Router();
 
 productRoutes.get("/product", ProductController.getAll);
-productRoutes.get("/product/:category", ProductController.getByCategory);
+productRoutes.get(
+  "/product/:category",
+  validateDto(productSchemas.findBycategory),
+  ProductController.getByCategory,
+);
 productRoutes.post(
   "/product",
   Authentication.authAdmin,
@@ -17,23 +21,27 @@ productRoutes.post(
 );
 productRoutes.put(
   "/product/:id",
+  validateDto(productSchemas.updateProduct),
   Authentication.authAdmin,
   upload.array("images"),
   ProductController.update,
 );
 productRoutes.delete(
   "/product/:id",
+  validateDto(productSchemas.onlyIdRequired),
   Authentication.authAdmin,
   ProductController.delete,
 );
 productRoutes.post(
   "/product/:id/images",
+  validateDto(productSchemas.onlyIdRequired),
   Authentication.authAdmin,
   upload.array("images"),
   ProductController.newImage,
 );
 productRoutes.delete(
-  "/product/:id/images/:id",
+  "/product/images/:id",
+  validateDto(productSchemas.onlyIdRequired),
   Authentication.authAdmin,
   ProductController.deleteImage,
 );

@@ -67,7 +67,7 @@ export default class ProductController {
   static async deleteImage(req: Request, res: Response, next: NextFunction) {
     try {
       const id = parseInt(req.params.id);
-      const image = await ProductRepository.deleteImage(id);
+      await ProductRepository.deleteImage(id);
       return res.sendStatus(204);
     } catch (error) {
       next(error);
