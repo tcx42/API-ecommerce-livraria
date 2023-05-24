@@ -9,7 +9,7 @@
         "start": "node build/index.js",
         "seed": "tsc && node build/database/seed.js",
         "devMigrate": "prisma migrate dev",
-        "setup": "mkdir images && npm i && npm run devMigrate && npm run compile"
+        "setup": "mkdir images; npm i && prisma generate && npm run compile && npm run devMigrate"
     },
     "prisma": {
         "seed": "npm run seed"

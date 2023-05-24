@@ -47,7 +47,7 @@ export default class ProductRepository {
         },
         images: {
           create: images?.map((image) => {
-            return { link: image };
+            return { filename: image };
           }),
         },
       },
@@ -88,7 +88,7 @@ export default class ProductRepository {
         },
         images: {
           create: images?.map((image) => {
-            return { link: image };
+            return { filename: image };
           }),
         },
       },
@@ -109,7 +109,7 @@ export default class ProductRepository {
   static async newImage(productId: number, imagesPaths: string[]) {
     return await prisma.productImage.createMany({
       data: imagesPaths.map((image) => {
-        return { link: image, productId };
+        return { filename: image, productId };
       }),
     });
   }

@@ -56,7 +56,7 @@ export default class ProductController {
       const id = parseInt(req.params.id);
       const imagesPaths = (req.files as Array<Express.Multer.File>)?.map((
         image,
-      ) => image.path);
+      ) => image.filename);
       const image = await ProductRepository.newImage(id, imagesPaths);
       return res.status(201).json(image);
     } catch (error) {
