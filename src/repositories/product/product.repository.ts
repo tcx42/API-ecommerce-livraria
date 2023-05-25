@@ -106,9 +106,9 @@ export default class ProductRepository {
     await prisma.$transaction([deleteOrders, deleteImages, deleteProduct]);
   }
 
-  static async newImage(productId: number, imagesPaths: string[]) {
+  static async newImage(productId: number, images: string[]) {
     return await prisma.productImage.createMany({
-      data: imagesPaths.map((image) => {
+      data: images.map((image) => {
         return { filename: image, productId };
       }),
     });

@@ -16,14 +16,15 @@ productRoutes.get(
 productRoutes.post(
   "/product",
   Authentication.authAdmin,
+  upload.array("images"),
   validateDto(productSchemas.newProduct),
   ProductController.create,
 );
 productRoutes.put(
   "/product/:id",
   Authentication.authAdmin,
-  validateDto(productSchemas.updateProduct),
   upload.array("images"),
+  validateDto(productSchemas.updateProduct),
   ProductController.update,
 );
 productRoutes.delete(

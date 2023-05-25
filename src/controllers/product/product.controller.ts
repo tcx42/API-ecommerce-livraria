@@ -24,7 +24,18 @@ export default class ProductController {
 
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const product = await ProductRepository.create(req.body);
+      const images = (req.files as Array<Express.Multer.File>)?.map(
+        (image) => image.filename,
+      );
+      const { name, price, description, inventory, categories } = req.body.data;
+      const product = await ProductRepository.create({
+        name,
+        price,
+        description,
+        inventory,
+        categories,
+        images,
+      });
       return res.status(201).json(product);
     } catch (error) {
       next(error);
@@ -34,7 +45,19 @@ export default class ProductController {
   static async update(req: Request, res: Response, next: NextFunction) {
     try {
       const id = parseInt(req.params.id);
-      const product = await ProductRepository.update({ id, ...req.body });
+      const images = (req.files as Array<Express.Multer.File>)?.map(
+        (image) => image.filename,
+      );
+      const { name, price, description, inventory, categories } = req.body.data;
+      const product = await ProductRepository.update({
+        id,
+        name,
+        price,
+        description,
+        inventory,
+        categories,
+        images,
+      });
       return res.status(200).json(product);
     } catch (error) {
       next(error);

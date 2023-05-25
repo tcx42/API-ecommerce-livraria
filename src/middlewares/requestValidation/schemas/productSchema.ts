@@ -8,11 +8,13 @@ export const productSchemas = {
   },
   newProduct: {
     body: object({
-      name: string().required(),
-      description: string().required(),
-      price: number().required(),
-      category: array().of(string()),
-      inventory: number().required(),
+      data: object({
+        name: string().required(),
+        description: string().required(),
+        price: number().required(),
+        category: array().of(string()),
+        inventory: number().required(),
+      }),
     }),
   },
   updateProduct: {
@@ -20,11 +22,13 @@ export const productSchemas = {
       id: number().required(),
     }),
     body: object({
-      name: string().optional(),
-      description: string().optional(),
-      price: number().optional(),
-      category: array().of(string()).optional(),
-      inventory: number().optional(),
+      data: object({
+        name: string().optional(),
+        description: string().optional(),
+        price: number().optional(),
+        category: array().of(string()).optional(),
+        inventory: number().optional(),
+      }),
     }),
   },
   onlyIdRequired: {
