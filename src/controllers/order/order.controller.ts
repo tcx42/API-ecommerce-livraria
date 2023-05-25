@@ -32,6 +32,16 @@ export default class OrderController {
     }
   }
 
+  static async updateOrder(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = parseInt(req.params.id);
+      const order = await OrderRepository.update({ id, ...req.body });
+      return res.status(200).json(order);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async deleteOrder(req: Request, res: Response, next: NextFunction) {
     try {
       const id = parseInt(req.params.id);

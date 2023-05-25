@@ -12,6 +12,20 @@ export const orderSchema = {
       })),
     }),
   },
+  update: {
+    params: object({
+      id: number().required(),
+    }),
+    body: object({
+      totalValue: number().optional(),
+      couponId: number().optional(),
+      products: array().of(object({
+        productId: number().required(),
+        quantity: number().optional(),
+        discount: number().optional(),
+      })).optional(),
+    }),
+  },
   onlyIdRequired: {
     params: object({
       id: number().required(),

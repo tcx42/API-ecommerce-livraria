@@ -30,6 +30,12 @@ orderRouters.get(
   Authentication.authAdmin,
   OrderController.getAllOrders,
 );
+orderRouters.put(
+  "/order/:id",
+  Authentication.authAdmin,
+  validateDto(orderSchema.update),
+  OrderController.updateOrder,
+);
 orderRouters.get(
   "/order/product/:id",
   Authentication.authAdmin,

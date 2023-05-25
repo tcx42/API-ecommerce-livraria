@@ -1,3 +1,4 @@
+import { Decimal } from "@prisma/client/runtime";
 import { prisma } from "../../database/db";
 import ApiError from "../../infra/apiErrors/ApiError";
 
@@ -35,7 +36,9 @@ export default class OrderRepository {
   }
 
   static async findAll() {
-    return await prisma.order.findMany();
+    return await prisma.order.findMany({
+      include: { products: true },
+    });
   }
 
   static async findByUser(userId: number) {
@@ -51,6 +54,36 @@ export default class OrderRepository {
     return await prisma.product.findMany({
       where: { id },
       include: { orders: true },
+    });
+  }
+
+  static async update(
+    { id, products, totalValue, couponId }: {
+      id: number;
+      products?: { productId: number; quantity?: number; discount?: Decimal }[];
+      totalValue?: Decimal;
+      couponId?: number;
+    },
+  ) {
+    return await prisma.order.update({
+      where: { id },
+      data: {
+        products: {
+          updateMany: products?.map((p) => {
+            return {
+              where: {
+                productId: p.productId,
+              },
+              data: {
+                quantity: p.quantity,
+                discount: p.discount,
+              },
+            };
+          }),
+        },
+        totalValue,
+        couponId: couponId,
+      },
     });
   }
 
