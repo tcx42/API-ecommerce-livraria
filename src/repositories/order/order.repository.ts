@@ -2,7 +2,7 @@ import { prisma } from "../../database/db";
 import ApiError from "../../infra/apiErrors/ApiError";
 
 export default class OrderRepository {
-  static async newOrder(
+  static async create(
     { userId, products }: {
       userId: number;
       products: Array<{ productId: number; quantity: number }>;
@@ -34,7 +34,11 @@ export default class OrderRepository {
     });
   }
 
-  static async getOrdersByUser(userId: number) {
+  static async findAll() {
+    return await prisma.order.findMany();
+  }
+
+  static async findByUser(userId: number) {
     return await prisma.order.findMany({
       where: {
         userId,
@@ -43,24 +47,31 @@ export default class OrderRepository {
     });
   }
 
-  static async deleteOrder(id: number) {
-    const deleteOrderProducts = prisma.productOrder.deleteMany({
-      where: { orderId: id },
-    });
-    const deleteOrder = prisma.order.delete({
-      where: { id },
-    });
-    await prisma.$transaction([deleteOrderProducts, deleteOrder]);
-  }
-
-  static async getOrders() {
-    return await prisma.order.findMany();
-  }
-
-  static async getOrdersByProduct(id: number) {
+  static async findByProduct(id: number) {
     return await prisma.product.findMany({
       where: { id },
       include: { orders: true },
+    });
+  }
+
+  static async delete(id: number) {
+    await prisma.$transaction(async (tx) => {
+      const products = await tx.productOrder.findMany({
+        where: { orderId: id },
+        select: { productId: true, quantity: true },
+      });
+      for (const p of products) {
+        await tx.product.update({
+          where: { id: p.productId },
+          data: { inventory: { increment: p.quantity } },
+        });
+      }
+      await tx.productOrder.deleteMany({
+        where: { orderId: id },
+      });
+      await tx.order.delete({
+        where: { id },
+      });
     });
   }
 }

@@ -12,7 +12,7 @@ export default class OrderController {
         select: { id: true },
       });
       if (!user) throw new ApiError(404, "Usuário não encontrado.");
-      const order = await OrderRepository.newOrder({
+      const order = await OrderRepository.create({
         userId: user.id,
         products: products,
       });
@@ -25,7 +25,7 @@ export default class OrderController {
   static async getUserOrders(req: Request, res: Response, next: NextFunction) {
     try {
       const id = parseInt(req.params.id);
-      const orders = await OrderRepository.getOrdersByUser(id);
+      const orders = await OrderRepository.findByUser(id);
       return res.status(200).json(orders);
     } catch (error) {
       next(error);
@@ -35,7 +35,7 @@ export default class OrderController {
   static async deleteOrder(req: Request, res: Response, next: NextFunction) {
     try {
       const id = parseInt(req.params.id);
-      await OrderRepository.deleteOrder(id);
+      await OrderRepository.delete(id);
       return res.sendStatus(204);
     } catch (error) {
       next(error);
@@ -44,7 +44,7 @@ export default class OrderController {
 
   static async getAllOrders(req: Request, res: Response, next: NextFunction) {
     try {
-      const orders = await OrderRepository.getOrders();
+      const orders = await OrderRepository.findAll();
       return res.status(200).json(orders);
     } catch (error) {
       next(error);
@@ -58,7 +58,7 @@ export default class OrderController {
   ) {
     try {
       const id = parseInt(req.params.id);
-      const orders = await OrderRepository.getOrdersByProduct(id);
+      const orders = await OrderRepository.findByProduct(id);
       return res.status(200).json(orders);
     } catch (error) {
       next(error);
