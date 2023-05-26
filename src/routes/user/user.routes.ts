@@ -27,6 +27,7 @@ userRoutes.get("/user/logout", UserController.logout);
 userRoutes.get(
   "/user/:email",
   Authentication.authClient,
+  Authentication.validateUserRoleForAction,
   UserController.getUserByEmail,
 );
 userRoutes.put(

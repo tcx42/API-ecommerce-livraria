@@ -39,8 +39,16 @@ export default class Authentication {
           role: user.role,
         });
         const refreshtoken = Jwtoken.generateRefreshToken(user.email);
-        res.cookie("jsonwebtoken", token);
-        res.cookie("refreshtoken", refreshtoken);
+        res.cookie("jsonwebtoken", token, {
+          httpOnly: true,
+          sameSite: "none",
+          secure: true,
+        });
+        res.cookie("refreshtoken", refreshtoken, {
+          httpOnly: true,
+          sameSite: "none",
+          secure: true,
+        });
         return user;
       } else {
         throw error;
@@ -57,7 +65,7 @@ export default class Authentication {
       const jwt = Jwtoken.decode(req.cookies.jsonwebtoken);
       if (jwt.role === "client" && jwt.email !== email) {
         throw new ApiError(
-          401,
+          403,
           "Requisição não permitida para este tipo de usuário",
         );
       }

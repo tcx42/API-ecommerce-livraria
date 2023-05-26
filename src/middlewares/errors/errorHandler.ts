@@ -18,13 +18,29 @@ export default function errorHandler(
   if (error instanceof JsonWebTokenError) {
     return res.status(401).json(error.message);
   }
-  if (error instanceof Prisma.PrismaClientKnownRequestError) {
-    return res.status(404).json(error.meta?.cause);
-  }
   if (error instanceof ValidationError) {
     return res.status(400).json(error.message);
   }
   if (error instanceof MulterError) {
+    return res.status(400).json(error.message);
+  }
+  if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    let status = 400;
+    let message = undefined;
+    switch (error.code) {
+      case "P2025":
+        status = 404;
+        message = "Registro para atualização não encontrado";
+        break;
+
+      default:
+        break;
+    }
+    return res.status(status).json(
+      message || error.meta?.cause || "Houve uma falha na requisição",
+    );
+  }
+  if (error instanceof Prisma.PrismaClientUnknownRequestError) {
     return res.status(400).json(error.message);
   }
   return res.status(500).json("Erro interno do servidor.");

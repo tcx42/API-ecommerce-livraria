@@ -19,7 +19,9 @@
     "description": "",
     "dependencies": {
         "@prisma/client": "^4.13.0",
+        "@types/cors": "^2.8.13",
         "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "jsonwebtoken": "^9.0.0",

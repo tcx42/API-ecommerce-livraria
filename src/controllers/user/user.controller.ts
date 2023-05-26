@@ -19,8 +19,16 @@ export default class UserController {
         role: user.role,
       });
       const refreshtoken = Jwtoken.generateRefreshToken(email);
-      res.cookie("jsonwebtoken", token);
-      res.cookie("refreshtoken", refreshtoken);
+      res.cookie("jsonwebtoken", token, {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      });
+      res.cookie("refreshtoken", refreshtoken, {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      });
       return res.sendStatus(200);
     } catch (error) {
       next(error);
