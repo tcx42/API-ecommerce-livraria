@@ -43,7 +43,9 @@
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [cors](https://www.npmjs.com/package/@types/cors)
 - [bcrypt](https://www.npmjs.com/package/@types/bcrypt)
-- [body-parser](https://www.npmjs.com/package/@types/body-parser)
+- [cookie-parser](https://www.npmjs.com/package/@types/body-parser)
+- [multer](https://)
+- [cookie-parser](https://)
 </br></br>
 <hr></br>
 
