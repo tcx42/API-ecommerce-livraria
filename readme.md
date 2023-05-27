@@ -195,12 +195,6 @@ Deve ser criada uma rota para cada operação do CRUD. Além disso, todas as rot
 As informações mínimas de um pedido/venda deve ser:identificador da venda, usuário que está comprando, lista de produtos que foi escolhida pelo usuário, valor total da venda.
 </br></br><hr></br>
 
-## <p align="center">Rotas</p></br>
-
-
-
-</br></br><hr></br>
-
 ## <p align="center">Autores</p><br>
 
 ### Front End</br>
