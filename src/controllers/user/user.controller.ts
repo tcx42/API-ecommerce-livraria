@@ -14,6 +14,7 @@ export default class UserController {
         throw new ApiError(400, "Credenciais inválidas.");
       }
       const token = Jwtoken.generateToken({
+        id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,

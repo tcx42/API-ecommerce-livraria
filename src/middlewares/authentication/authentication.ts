@@ -34,6 +34,7 @@ export default class Authentication {
         Jwtoken.verifyRefresh(req.cookies.refreshtoken);
         const user = Jwtoken.decode(req.cookies.jsonwebtoken);
         const token = Jwtoken.generateToken({
+          id: user.id,
           name: user.name,
           email: user.email,
           role: user.role,
