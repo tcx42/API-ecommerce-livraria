@@ -43,7 +43,9 @@
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [cors](https://www.npmjs.com/package/@types/cors)
 - [bcrypt](https://www.npmjs.com/package/@types/bcrypt)
-- [body-parser](https://www.npmjs.com/package/@types/body-parser)
+- [cookie-parser](https://www.npmjs.com/package/@types/body-parser)
+- [multer](https://)
+- [cookie-parser](https://)
 </br></br>
 <hr></br>
 
@@ -191,12 +193,6 @@ Além disso, a rota de listagem do produto deve trazer populadaas informações 
 Deve ser criada uma rota para cada operação do CRUD. Além disso, todas as rotas, com exceção da rota de listagem dos produtos, só devem ser acessadas por um usuário logado
 (Independente do tipo de usuário).
 As informações mínimas de um pedido/venda deve ser:identificador da venda, usuário que está comprando, lista de produtos que foi escolhida pelo usuário, valor total da venda.
-</br></br><hr></br>
-
-## <p align="center">Rotas</p></br>
-
-
-
 </br></br><hr></br>
 
 ## <p align="center">Autores</p><br>
