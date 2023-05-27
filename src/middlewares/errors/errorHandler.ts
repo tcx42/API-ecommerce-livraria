@@ -11,7 +11,6 @@ export default function errorHandler(
   res: Response,
   next: NextFunction,
 ) {
-  console.error(error);
   if (error instanceof ApiError) {
     return res.status(error.statusCode).json(error.message);
   }
@@ -41,7 +40,10 @@ export default function errorHandler(
     );
   }
   if (error instanceof Prisma.PrismaClientUnknownRequestError) {
-    return res.status(400).json(error.message);
+    return res.status(400).json(
+      "Houve uma falha na requisição, existem conflitos entre valores enviados e permitidos",
+    );
   }
+  console.error(error);
   return res.status(500).json("Erro interno do servidor.");
 }
