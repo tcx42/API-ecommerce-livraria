@@ -43,7 +43,9 @@
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [cors](https://www.npmjs.com/package/@types/cors)
 - [bcrypt](https://www.npmjs.com/package/@types/bcrypt)
-- [body-parser](https://www.npmjs.com/package/@types/body-parser)
+- [cookie-parser](https://www.npmjs.com/package/@types/body-parser)
+- [multer](https://)
+- [cookie-parser](https://)
 </br></br>
 <hr></br>
 
@@ -193,12 +195,6 @@ Deve ser criada uma rota para cada operação do CRUD. Além disso, todas as rot
 As informações mínimas de um pedido/venda deve ser:identificador da venda, usuário que está comprando, lista de produtos que foi escolhida pelo usuário, valor total da venda.
 </br></br><hr></br>
 
-## <p align="center">Rotas</p></br>
-
-
-
-</br></br><hr></br>
-
 ## <p align="center">Autores</p><br>
 
 ### Front End</br>
@@ -219,7 +215,6 @@ As informações mínimas de um pedido/venda deve ser:identificador da venda, us
 <p align="center">Hospedagem do Front End em: </p>
 <p align="center">Hospedagem do Back End em: </p></br></br>
 <p align="center">XP48 - Gama Academy</br> 2023 </p>
-
 
 
 
