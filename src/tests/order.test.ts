@@ -1,25 +1,18 @@
-import request from 'supertest';
-import jwt from 'jsonwebtoken';
-import api from '../infra/api/api'; 
-
-// Função auxiliar para gerar um token JWT
-function generateToken(payload: object): string {
-  const secret = 'iFj2BpBdkb0DdSjwcuUn'; 
-  const options = { expiresIn: '1h' }; // Define o tempo de expiração do token
-  return jwt.sign(payload, secret, options);
-}
+import supertest from 'supertest';
+import api from '../infra/api/api';
+import Jwtoken from '../core/utils/jwtoken';
 
 
 describe('/order path test', () => {
 
-    const userAdmin = { name: "alice", email: "alice@email.com", role: "admin" }; 
-    const userClient = { name: "kayto", email: "kayto@email.com", role: "client" }; 
+    const userAdmin = { name: "alice", email: "alice@email.com", role: "admin" as "admin" }; 
+    const userClient = { name: "kayto", email: "kayto@email.com", role: "client" as "client" }; 
 
   it('/get - It should return status 200 if the authentication is valid', (done) => {
 
-    const token = generateToken(userAdmin); 
+    const token = Jwtoken.generateToken(userAdmin); 
 
-    request(api)
+    supertest(api)
       .get('/order') 
       .set('Authorization', `Bearer ${token}`) 
       .expect(200) 
@@ -30,9 +23,9 @@ describe('/order path test', () => {
 
   it('/put - It should return status 200 if the authentication is valid', (done) => {
 
-    const token = generateToken(userAdmin); 
+    const token = Jwtoken.generateToken(userAdmin); 
 
-    request(api)
+    supertest(api)
       .put('/order/:id') 
       .set('Authorization', `Bearer ${token}`) 
       .expect(200) 
@@ -43,9 +36,9 @@ describe('/order path test', () => {
 
   it('/delete - It should return status 204 if the authentication is valid', (done) => { 
 
-    const token = generateToken(userAdmin); 
+    const token = Jwtoken.generateToken(userAdmin); 
 
-    request(api)
+    supertest(api)
       .delete('/order/:id') 
       .set('Authorization', `Bearer ${token}`) 
       .expect(204) 
@@ -56,9 +49,9 @@ describe('/order path test', () => {
 
   it('It should return status 403 because this path is exclusive for the admin user', (done) => {
 
-    const token = generateToken(userClient); 
+    const token = Jwtoken.generateToken(userClient); 
 
-    request(api)
+    supertest(api)
       .get('/order') 
       .set('Authorization', `Bearer ${token}`) 
       .expect(403) 
@@ -68,7 +61,7 @@ describe('/order path test', () => {
   });
 
   it('It should return error status 401 for trying to acess the path without token/authentication', (done) => {
-    request(api)
+    supertest(api)
       .get('/order') 
       .expect(401) 
       .end((err, res) => {
