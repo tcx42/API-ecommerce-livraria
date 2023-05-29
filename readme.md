@@ -5,11 +5,11 @@
   <p align="center">Projeto de MVP (Produto Mínimo Viável) de um ecommerce com o propósito de aplicar conhecimentos adquiridos durante XP48 da Gama Academy. Prezando pela      utilização de boas práticas e escalabilidade de sotfware.</p></br>
 
 ### <p align="center"> Documentação da API: https://tcx42.github.io/API-ecommerce-livraria/ </p>
-### <p align="center"> Webservice/API: </p>
-### <p align="center"> Repositório Front End: https://github.com/BrunaRZP/Front-Bookstore </p>
+### <p align="center"> Webservice/API: https://api-ecommerce-livraria.onrender.com/ </p>
+### <p align="center"> Repositório Front End: https://github.com/BrunaRZP/Bookstore </p>
 ### <p align="center"> Site/E-commerce:  </p></br>
 
-### <p align="center"> Status - Em desenvolvimento </p></br><hr></br>
+### <p align="center"> Status - Completo </p></br><hr></br>
 
 ## <p align="center">Stacks</p></br>
 
@@ -212,8 +212,9 @@ As informações mínimas de um pedido/venda deve ser:identificador da venda, us
 
 </br></br><hr></br></br>
 
-<p align="center">Hospedagem do Front End em: </p>
-<p align="center">Hospedagem do Back End em: </p></br></br>
+<p align="center">Hospedagem do Front End em: https://www.vercel.com </p>
+<p align="center">Hospedagem do Back End em: https://www.render.com</p>
+<p align="center">Hospedagem do Banco de Dados em: https://www.heroku.com</p></br></br>
 <p align="center">XP48 - Gama Academy</br> 2023 </p>
 
 
