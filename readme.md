@@ -212,9 +212,9 @@ As informações mínimas de um pedido/venda deve ser:identificador da venda, us
 
 </br></br><hr></br></br>
 
-<p align="center">Hospedagem do Front End em: https://wwww.vercel.com </p>
-<p align="center">Hospedagem do Back End em: https://wwww.render.com </p>
-<p align="center">Hospedagem do Banco de Dados em: https://wwww.heroku.com </p></br></br>
+<p align="center">Hospedagem do Front End em: https://www.vercel.com </p>
+<p align="center">Hospedagem do Back End em: https://www.render.com</p>
+<p align="center">Hospedagem do Banco de Dados em: https://www.heroku.com</p></br></br>
 <p align="center">XP48 - Gama Academy</br> 2023 </p>
 
 
