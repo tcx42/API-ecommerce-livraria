@@ -38,14 +38,12 @@
 ### Dependências</br>
 
 - [Prisma](https://www.prisma.io/)
-- [JWT](https://jwt.io/)
-- [Jasonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [cors](https://www.npmjs.com/package/@types/cors)
-- [bcrypt](https://www.npmjs.com/package/@types/bcrypt)
+- [node:crypto](https://nodejs.org/api/crypto.html)
 - [cookie-parser](https://www.npmjs.com/package/@types/body-parser)
-- [multer](https://)
-- [cookie-parser](https://)
+- [multer](https://www.npmjs.com/package/multer)
 </br></br>
 <hr></br>
 
