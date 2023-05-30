@@ -7,7 +7,7 @@
 ### <p align="center"> Documentação da API: https://tcx42.github.io/API-ecommerce-livraria/ </p>
 ### <p align="center"> Webservice/API: https://api-ecommerce-livraria.onrender.com/ </p>
 ### <p align="center"> Repositório Front End: https://github.com/BrunaRZP/Bookstore </p>
-### <p align="center"> Site/E-commerce:  </p></br>
+### <p align="center"> Site/E-commerce: https://bookstore-gules-xi.vercel.app/ </p></br>
 
 ### <p align="center"> Status - Completo </p></br><hr></br>
 
