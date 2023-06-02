@@ -6,6 +6,11 @@ export const productSchemas = {
       category: string().required(),
     }),
   },
+  search: {
+    params: object({
+      keyword: string().required(),
+    }),
+  },
   newProduct: {
     body: object({
       data: object({

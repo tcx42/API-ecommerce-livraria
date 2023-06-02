@@ -11,6 +11,16 @@ export default class ProductController {
     }
   }
 
+  static async search(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { keyword } = req.params;
+      const products = await ProductRepository.search(keyword);
+      return res.status(200).json(products);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async getByCategory(req: Request, res: Response, next: NextFunction) {
     try {
       const products = await ProductRepository.findByCategory(

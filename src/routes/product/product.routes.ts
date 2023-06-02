@@ -9,6 +9,11 @@ const productRoutes = Router();
 
 productRoutes.get("/product", ProductController.getAll);
 productRoutes.get(
+  "/product/search/:keyword",
+  validateDto(productSchemas.search),
+  ProductController.search,
+);
+productRoutes.get(
   "/product/:category",
   validateDto(productSchemas.findBycategory),
   ProductController.getByCategory,

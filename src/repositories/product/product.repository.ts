@@ -7,6 +7,13 @@ export default class ProductRepository {
     });
   }
 
+  static async search(keyWord: string) {
+    return await prisma.product.findMany({
+      where: { name: { contains: keyWord } },
+      include: { categories: true, images: true },
+    });
+  }
+
   static async findByCategory(category: string | Array<string>) {
     return await prisma.category.findMany({
       where: { name: { in: category } },
