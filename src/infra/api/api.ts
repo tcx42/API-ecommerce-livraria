@@ -14,6 +14,7 @@ api.use(cors({
 api.use(cookieParser());
 api.use(express.json());
 api.use(routes);
+api.use("/", express.static(path.resolve("docs")));
 api.use("/images", express.static(path.resolve("images")));
 api.use(errorHandler);
 
