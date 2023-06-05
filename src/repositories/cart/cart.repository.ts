@@ -1,6 +1,7 @@
 // cart.repository.ts
 
 import { Prisma, PrismaClient } from "@prisma/client";
+import ApiError from "../../infra/apiErrors/ApiError";
 
 const prisma = new PrismaClient();
 
@@ -17,7 +18,7 @@ interface ProductCartCreateInput {
 export default class CartRepository {
 
     static async getCartWithProducts(cartId: number) {
-        return prisma.cart.findUnique({
+        return await prisma.cart.findUnique({
             where: { id: cartId },
             include: { products: true },
         });
@@ -28,11 +29,11 @@ export default class CartRepository {
             userId,
         };
 
-        return prisma.cart.create({ data });
+        return await prisma.cart.create({ data });
     }
 
     static async findProductInCart(cartId: number, productId: number) {
-        return prisma.productCart.findFirst({
+        return await prisma.productCart.findFirst({
             where: {
                 cartId,
                 productId,
@@ -41,34 +42,38 @@ export default class CartRepository {
     }
 
     static async updateProductQuantity(cartItemId: number, quantity: number) {
-        return prisma.productCart.update({
+        return await prisma.productCart.update({
             where: { id: cartItemId },
             data: { quantity },
         });
     }
 
     static async addProductToCart(
-        cartId: number,
-        productId: number,
-        quantity: number
+      userId: number,
+      productId: number,
+      quantity: number
     ) {
-        const data: ProductCartCreateInput = {
-            quantity,
+      return await prisma.cart.update({
+      where: { userId },
+      data: {
+        products: {
+          create: {
             productId,
-            cartId,
-        };
-
-        return prisma.productCart.create({ data });
+            quantity
+          }
+        }
+      }
+    })
     }
 
     static async removeProductFromCart(cartItemId: number) {
-        return prisma.productCart.delete({
+        return await prisma.productCart.delete({
             where: { id: cartItemId },
         });
     }
 
     static async findCartByUserId(userId: number) {
-        return prisma.cart.findFirst({
+        return await prisma.cart.findFirst({
             where: { userId },
         });
     }
@@ -77,7 +82,7 @@ export default class CartRepository {
         const cart = await this.findCartByUserId(userId);
         if (!cart) return null;
 
-        return prisma.productCart.findFirst({
+        return await prisma.productCart.findFirst({
             where: {
                 cartId: cart.id,
                 productId,

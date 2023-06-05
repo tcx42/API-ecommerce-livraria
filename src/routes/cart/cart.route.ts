@@ -9,14 +9,14 @@ const cartRoutes = Router();
 cartRoutes.post(
     "/cart/add",
     Authentication.authClient,
-    validateDto({ body: addProduct }),
+    validateDto(addProduct),
     CartController.addToCart
 );
 
 cartRoutes.post(
     "/cart/remove",
     Authentication.authClient,
-    validateDto({ body: removeProduct }),
+    validateDto(removeProduct),
     CartController.removeFromCart
 );
 
