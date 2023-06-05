@@ -7,7 +7,7 @@ import cors from "cors";
 
 const api = express();
 api.use(cors({
-  origin: ["https://localhost:3000"],
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
