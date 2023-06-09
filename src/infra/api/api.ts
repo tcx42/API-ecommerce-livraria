@@ -7,7 +7,7 @@ import cors from "cors";
 
 const api = express();
 api.use(cors({
-  origin: "*",
+  origin: ["http://localhost:3000", "https://bookstore-gules-xi.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
