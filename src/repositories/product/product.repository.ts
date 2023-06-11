@@ -1,3 +1,5 @@
+import ApiError from "../../infra/apiErrors/ApiError";
+import deleteImage from "../../core/utils/deleteImage";
 import { prisma } from "../../database/db";
 
 export default class ProductRepository {
@@ -122,8 +124,16 @@ export default class ProductRepository {
   }
 
   static async deleteImage(id: number) {
-    return await prisma.productImage.delete({
-      where: { id },
+    return await prisma.$transaction(async (tx) => {
+      const image = await tx.productImage.findUnique({
+        where: { id },
+        select: { filename: true },
+      });
+      if (!image) throw new ApiError(404, "Imagem não encontrada.");
+      await deleteImage(image.filename);
+      return await tx.productImage.delete({
+        where: { id },
+      });
     });
   }
 }

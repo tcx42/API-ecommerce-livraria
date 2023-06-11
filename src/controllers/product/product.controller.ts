@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import ProductRepository from "../../repositories/product/product.repository";
+import storeImages from "../../core/utils/storeImages";
 
 export default class ProductController {
   static async getAll(req: Request, res: Response, next: NextFunction) {
@@ -34,10 +35,11 @@ export default class ProductController {
 
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const images = (req.files as Array<Express.Multer.File>)?.map(
-        (image) => image.filename,
-      );
       const { name, price, description, inventory, categories } = req.body.data;
+      let images: string[] | undefined = undefined;
+      if (req.files) {
+        images = storeImages(req.files as Array<Express.Multer.File>);
+      }
       const product = await ProductRepository.create({
         name,
         price,
@@ -55,9 +57,10 @@ export default class ProductController {
   static async update(req: Request, res: Response, next: NextFunction) {
     try {
       const id = parseInt(req.params.id);
-      const images = (req.files as Array<Express.Multer.File>)?.map(
-        (image) => image.filename,
-      );
+      let images: string[] | undefined = undefined;
+      if (req.files) {
+        images = storeImages(req.files as Array<Express.Multer.File>);
+      }
       const { name, price, description, inventory, categories } = req.body.data;
       const product = await ProductRepository.update({
         id,
@@ -87,10 +90,8 @@ export default class ProductController {
   static async newImage(req: Request, res: Response, next: NextFunction) {
     try {
       const id = parseInt(req.params.id);
-      const imagesPaths = (req.files as Array<Express.Multer.File>)?.map((
-        image,
-      ) => image.filename);
-      const image = await ProductRepository.newImage(id, imagesPaths);
+      const images = storeImages(req.files as Array<Express.Multer.File>);
+      const image = await ProductRepository.newImage(id, images);
       return res.status(201).json(image);
     } catch (error) {
       next(error);

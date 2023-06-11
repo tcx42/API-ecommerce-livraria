@@ -1,19 +1,8 @@
-import multer from "multer";
-import path from "path";
+import multer, { memoryStorage } from "multer";
 import ApiError from "../../infra/apiErrors/ApiError";
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.resolve("images"));
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9) +
-      file.originalname;
-    cb(null, uniqueSuffix);
-  },
-});
 
 const upload = multer({
-  storage: storage,
+  storage: memoryStorage(),
   limits: { fileSize: 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     if (
