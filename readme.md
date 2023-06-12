@@ -7,7 +7,7 @@
 ### <p align="center"> Documentação da API: https://tcx42.github.io/API-ecommerce-livraria/ </p>
 ### <p align="center"> Webservice/API: https://api-ecommerce-livraria.onrender.com/ </p>
 ### <p align="center"> Repositório Front End: https://github.com/BrunaRZP/Bookstore </p>
-### <p align="center"> Site/E-commerce: https://bookstore-gules-xi.vercel.app/ </p></br>
+### <p align="center"> Site/E-commerce: https://bookstore-omega-snowy.vercel.app/ </p></br>
 
 ### Limitações devido ao deploy no Render:
   #### Para utilizar a API é necessário que ela seja iniciada, ao clicar no link <a href="https://api-ecommerce-livraria.onrender.com/">Webservice/API</a> a API será iniciada e a documentação exibida.
