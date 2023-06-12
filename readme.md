@@ -9,7 +9,10 @@
 ### <p align="center"> Repositório Front End: https://github.com/BrunaRZP/Bookstore </p>
 ### <p align="center"> Site/E-commerce: https://bookstore-gules-xi.vercel.app/ </p></br>
 
-### <p align="center"> Status - Completo </p></br><hr></br>
+### Limitações devido ao deploy no Render:
+  #### Para utilizar a API é necessário que ela seja iniciada, ao clicar no link <a href="https://api-ecommerce-livraria.onrender.com/">Webservice/API</a> a API será iniciada e a documentação exibida.
+  #### A cada reinicialização imagens de produtos são perdidas e novas imagens precisam ser enviadas, sendo estas tambem perdidas após certo periodo de inatividade.
+<br>
 
 ## <p align="center">Stacks</p></br>
 
