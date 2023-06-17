@@ -14,6 +14,13 @@ export default class ProductRepository {
     });
   }
 
+  static async findById(id: number) {
+    return await prisma.product.findUnique({
+      where: { id },
+      include: { categories: true, images: true },
+    });
+  }
+
   static async findByCategory(category: string | Array<string>) {
     return await prisma.category.findMany({
       where: { name: { in: category } },

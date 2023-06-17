@@ -14,7 +14,7 @@ productRoutes.get(
   ProductController.search,
 );
 productRoutes.get(
-  "/product/:category",
+  "/product/category/:category",
   validateDto(productSchemas.findBycategory),
   ProductController.getByCategory,
 );
@@ -24,6 +24,11 @@ productRoutes.post(
   upload.array("images"),
   validateDto(productSchemas.newProduct),
   ProductController.create,
+);
+productRoutes.get(
+  "/product/:id",
+  validateDto(productSchemas.onlyIdRequired),
+  ProductController.getById,
 );
 productRoutes.put(
   "/product/:id",

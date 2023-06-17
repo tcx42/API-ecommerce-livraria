@@ -21,6 +21,15 @@ export default class ProductController {
     }
   }
 
+  static async getById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const product = await ProductRepository.findById(parseInt(req.params.id));
+      return res.status(200).json(product);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async getByCategory(req: Request, res: Response, next: NextFunction) {
     try {
       const products = await ProductRepository.findByCategory(
