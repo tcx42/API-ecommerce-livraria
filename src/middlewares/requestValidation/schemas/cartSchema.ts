@@ -1,18 +1,22 @@
-import { object, string, number } from "yup";
+import { number, object, string } from "yup";
 
-const addProduct = {
+const cartSchemas = {
+  addProduct: {
     body: object({
-        userEmail: string().email().required(),
-        productId: number().required(),
-        quantity: number().required(),
+      productId: number().required(),
+      quantity: number().required(),
     }).defined(),
-}
-
-const removeProduct = {
+  },
+  removeProduct: {
     body: object({
-        userEmail: string().email().required(),
-        productId: number().required(),
+      productId: number().required(),
     }).defined(),
-}
+  },
+  onlyIdRequired: {
+    params: object({
+      id: number().required(),
+    }),
+  },
+};
 
-export { addProduct, removeProduct };
+export default cartSchemas;

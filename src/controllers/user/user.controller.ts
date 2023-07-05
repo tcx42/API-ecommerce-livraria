@@ -81,6 +81,22 @@ export default class UserController {
       next(error);
     }
   }
+  static async getUserByToken(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = req.user?.id;
+      if (!id) throw new ApiError(404, "Usuario não encontrado");
+      const user = await UserRepository.findUserById(id);
+      if (!user) {
+        throw new ApiError(
+          404,
+          "Usuário não encontrado para o endereço de email informado!",
+        );
+      }
+      return res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
 
   static async createAdmin(req: Request, res: Response, next: NextFunction) {
     try {
@@ -113,10 +129,27 @@ export default class UserController {
 
   static async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const { email } = req.params;
+      const id = req.user?.id;
+      if (!id) throw new ApiError(404, "Usuário não encontrado");
       const { name, password } = req.body;
       const user = await UserRepository.updateUser({
-        email,
+        id,
+        name,
+        password,
+      });
+      return res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async updateAsAdmin(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = parseInt(req.params?.id);
+      if (!id) throw new ApiError(404, "Usuário não encontrado");
+      const { name, password } = req.body;
+      const user = await UserRepository.updateUser({
+        id,
         name,
         password,
       });
@@ -128,8 +161,19 @@ export default class UserController {
 
   static async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const { email } = req.params;
-      await UserRepository.deleteUser(email);
+      const id = req.user?.id;
+      if (!id) throw new ApiError(404, "Usuário não encontrado");
+      await UserRepository.deleteUser(id);
+      return res.sendStatus(204);
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async deleteAsAdmin(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = parseInt(req.params?.id);
+      if (!id) throw new ApiError(404, "Usuário não encontrado");
+      await UserRepository.deleteUser(id);
       return res.sendStatus(204);
     } catch (error) {
       next(error);
