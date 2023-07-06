@@ -5,7 +5,7 @@ import ApiError from "../../infra/apiErrors/ApiError";
 export default class UserRepository {
   static async findUsers() {
     return await prisma.user.findMany({
-      select: { name: true, email: true, role: true },
+      select: { id: true, name: true, email: true, role: true },
     });
   }
 
@@ -57,16 +57,16 @@ export default class UserRepository {
   }
 
   static async updateUser({
-    email,
+    id,
     name,
     password,
   }: {
-    email: string;
+    id: number;
     name?: string;
     password?: string;
   }) {
     const user = await prisma.user.update({
-      where: { email },
+      where: { id },
       data: {
         name,
         password: password ? Encryption.hashPassword(password) : undefined,
@@ -75,25 +75,20 @@ export default class UserRepository {
     return { name: user.name, email: user.email, role: user.role };
   }
 
-  static async deleteUser(email: string) {
+  static async deleteUser(id: number) {
     await prisma.$transaction(async (tx) => {
-      const user = await tx.user.findUnique({
-        where: { email },
-        select: { id: true },
-      });
-      if (!user) throw new ApiError(404, "Usuário não encontrado.");
       const orders = await tx.order.findMany({
-        where: { userId: user.id },
+        where: { id },
         select: { id: true },
       });
       await tx.productOrder.deleteMany({
         where: { orderId: { in: orders.map((o) => o.id) } },
       });
       await tx.order.deleteMany({
-        where: { userId: user.id },
+        where: { id },
       });
       await tx.user.delete({
-        where: { email },
+        where: { id },
       });
     });
   }

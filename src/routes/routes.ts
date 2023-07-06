@@ -1,18 +1,17 @@
-import { Router } from "express";
-import productRoutes from "./product/product.routes";
-import orderRouters from "./order/order.routes";
-import userRoutes from "./user/user.routes";
-import categoryRoutes from "./category/category.routes";
-import cartRoutes from "./cart/cart.route";
+import express from "express";
+import path from "node:path";
+import Authentication from "../middlewares/authentication/authentication";
+import openRoutes from "./open/open.routes";
+import adminRoutes from "./admin/admin.routes";
+import clientRoutes from "./client/client.routes";
 
-const routes = Router();
+const routes = express.Router();
 
-routes.use(productRoutes);
-routes.use(orderRouters);
-routes.use(userRoutes);
-routes.use(categoryRoutes);
-routes.use(cartRoutes);
-
+routes.use("/", openRoutes);
+routes.use("/admin", Authentication.authAdmin, adminRoutes);
+routes.use("/client", Authentication.authClient, clientRoutes);
+routes.use("/documentation", express.static(path.resolve("docs")));
+routes.use("/images", express.static(path.resolve("images")));
 routes.get("/health", (req, res) => {
   return res.sendStatus(200);
 });

@@ -6,7 +6,7 @@ import { TokenExpiredError } from "jsonwebtoken";
 export default class Authentication {
   static authClient(req: Request, res: Response, next: NextFunction) {
     try {
-      Authentication.verify(req, res);
+      req.user = Authentication.verify(req, res);
       next();
     } catch (error) {
       next(error);
@@ -15,6 +15,7 @@ export default class Authentication {
   static authAdmin(req: Request, res: Response, next: NextFunction) {
     try {
       const user = Authentication.verify(req, res);
+      req.user = user;
       if (user?.role !== "admin") {
         throw new ApiError(
           403,
