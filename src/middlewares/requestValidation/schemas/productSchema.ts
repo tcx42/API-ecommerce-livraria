@@ -8,7 +8,7 @@ export const productSchemas = {
   },
   search: {
     params: object({
-      filename: string().required(),
+      keyword: string().required(),
     }),
   },
   newProduct: {

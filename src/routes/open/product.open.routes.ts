@@ -12,7 +12,7 @@ openProductRoutes.get(
   ProductController.getById,
 );
 openProductRoutes.get(
-  "/search/:filename",
+  "/search/:keyword",
   validateDto(productSchemas.search),
   ProductController.search,
 );
