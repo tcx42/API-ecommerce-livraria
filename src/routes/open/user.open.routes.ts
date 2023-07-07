@@ -15,6 +15,6 @@ openUserRoutes.post(
   validateDto(userSchema.login),
   UserController.login,
 );
-openUserRoutes.get("logout", UserController.logout);
+openUserRoutes.get("/logout", UserController.logout);
 
 export default openUserRoutes;
