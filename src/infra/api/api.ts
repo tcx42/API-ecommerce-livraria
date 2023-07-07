@@ -10,7 +10,7 @@ api.use(cors({
     "http://localhost:3000",
     "https://bookstore-gules-xi.vercel.app",
     "https://bookstore-2-7fijymzsh-leonardo-tech-stack.vercel.app",
-    "https://chapterone.vercel.app/",
+    "https://chapterone.vercel.app",
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
