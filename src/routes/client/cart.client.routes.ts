@@ -7,7 +7,6 @@ const cartClientRoutes = Router();
 
 cartClientRoutes.get(
   "/",
-  validateDto(cartSchemas.onlyIdRequired),
   CartController.getCartWithProducts,
 );
 cartClientRoutes.post(
