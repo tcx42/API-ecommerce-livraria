@@ -11,6 +11,7 @@ export default function errorHandler(
   res: Response,
   next: NextFunction,
 ) {
+  console.log(error);
   if (error instanceof ApiError) {
     return res.status(error.statusCode).json(error.message);
   }
@@ -44,6 +45,5 @@ export default function errorHandler(
       "Houve uma falha na requisição, existem conflitos entre valores enviados e permitidos",
     );
   }
-  console.error(error);
   return res.status(500).json("Erro interno do servidor.");
 }
