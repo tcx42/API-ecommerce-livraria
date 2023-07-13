@@ -110,6 +110,9 @@ export default class ProductRepository {
   }
 
   static async delete(id: number) {
+    const cart = prisma.productCart.deleteMany({
+      where: { productId: id },
+    });
     const deleteOrders = prisma.productOrder.deleteMany({
       where: { productId: id },
     });
@@ -117,7 +120,12 @@ export default class ProductRepository {
       where: { productId: id },
     });
     const deleteProduct = prisma.product.delete({ where: { id } });
-    await prisma.$transaction([deleteOrders, deleteImages, deleteProduct]);
+    await prisma.$transaction([
+      cart,
+      deleteOrders,
+      deleteImages,
+      deleteProduct,
+    ]);
   }
 
   static async newImage(productId: number, images: string[]) {
