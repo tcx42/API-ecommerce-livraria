@@ -6,7 +6,8 @@ import ApiError from "../../infra/apiErrors/ApiError";
 export default class OrderController {
   static async createOrder(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userEmail, couponId, products } = req.body;
+      const userEmail = req.user?.email;
+      const { couponId, products } = req.body;
       const user = await prisma.user.findUnique({
         where: { email: userEmail },
         select: { id: true },
