@@ -15,7 +15,7 @@ categoryAdminRoutes.put(
   validateDto(categorySchema.update),
   CategoryController.update,
 );
-categoryAdminRoutes.put(
+categoryAdminRoutes.delete(
   "/:id",
   validateDto(categorySchema.onlyIdRequired),
   CategoryController.delete,
