@@ -23,9 +23,23 @@ export default class OrderController {
     }
   }
 
-  static async getUserOrders(req: Request, res: Response, next: NextFunction) {
+  static async getUserOrdersParamsId(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
       const id = parseInt(req.params.id);
+      const orders = await OrderRepository.findByUser(id);
+      return res.status(200).json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async getUserOrders(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = req.user?.id;
+      if (!id) throw new ApiError(404, "Usuário não encontrado");
       const orders = await OrderRepository.findByUser(id);
       return res.status(200).json(orders);
     } catch (error) {
