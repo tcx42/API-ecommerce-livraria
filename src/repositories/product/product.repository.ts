@@ -30,6 +30,13 @@ export default class ProductRepository {
     });
   }
 
+  static async getInventory(id: number) {
+    return await prisma.product.findFirst({
+      where: { id },
+      select: { inventory: true },
+    });
+  }
+
   static async create({
     name,
     price,

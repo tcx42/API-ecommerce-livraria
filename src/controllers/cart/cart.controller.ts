@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import CartRepository from "../../repositories/cart/cart.repository";
 import ApiError from "../../infra/apiErrors/ApiError";
+import ProductRepository from "../../repositories/product/product.repository";
 
 export default class CartController {
   static async addToCart(req: Request, res: Response, next: NextFunction) {
@@ -16,6 +17,11 @@ export default class CartController {
         user.id,
         productId,
       );
+      const product = await ProductRepository.getInventory(productId);
+      if (!product) throw new ApiError(404, "Produto não encontrado");
+      if (quantity > product.inventory) {
+        throw new ApiError(400, "Limite de estoque excedido");
+      }
       if (existingProduct) {
         await CartRepository.updateProductQuantity(
           existingProduct.id,
