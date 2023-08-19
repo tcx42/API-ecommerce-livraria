@@ -92,27 +92,39 @@ export default class ProductRepository {
     categories?: Array<string>;
     images?: Array<string>;
   }) {
-    return await prisma.product.update({
-      where: { id },
-      data: {
-        name,
-        price,
-        description,
-        inventory,
-        categories: {
-          connectOrCreate: categories?.map((category) => {
-            return {
-              where: { name: category },
-              create: { name: category },
-            };
-          }),
+    return await prisma.$transaction(async (tx) => {
+      if (categories) {
+        await tx.product.update({
+          where: { id },
+          data: {
+            categories: {
+              set: [],
+            },
+          },
+        });
+      }
+      return await tx.product.update({
+        where: { id },
+        data: {
+          name,
+          price,
+          description,
+          inventory,
+          categories: {
+            connectOrCreate: categories?.map((category) => {
+              return {
+                where: { name: category },
+                create: { name: category },
+              };
+            }),
+          },
+          images: {
+            create: images?.map((image) => {
+              return { filename: image };
+            }),
+          },
         },
-        images: {
-          create: images?.map((image) => {
-            return { filename: image };
-          }),
-        },
-      },
+      });
     });
   }
 
